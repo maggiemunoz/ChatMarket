@@ -1,0 +1,27 @@
+<%= form_with(model: trade_request, local: true) do |form| %>
+  <% if trade_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trade_request.errors.count, "error") %> prohibited this trade_request from being saved:</h2>
+
+      <ul>
+        <% trade_request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_start %>
+    <%= form.datetime_select :date_start, {minute_step: 60, discard_year: true, discard_minutes: true} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
