@@ -23,6 +23,10 @@
 
   <%= form.hidden_field :trade_request_id, value: params["trade_id"] %>
 
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <%= form.hidden_field :status, value: "pendiente" %>
+
   <div class="actions">
     <%= form.submit %>
   </div>

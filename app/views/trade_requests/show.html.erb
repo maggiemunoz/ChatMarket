@@ -1,36 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @trade_request.name %>
-</p>
+<h6 style="text-align: center; font-size: 2em; margin-bottom: 1.5em"> Solicitud </h6>
 
-<p>
-  <strong>Date Start:</strong>
-  <%= @trade_request.date_start %>
-</p>
+<div class="box">
+  <p style="text-align: center; margin-bottom: 1em; font-size: 1.2em"><%= @trade_request.name %> </p>
+  <p style="text-align: center; margin-bottom: 1em; font-size: 2em">
+    <%= @trade_request.date_start.strftime("%a %e/%-m, %k:%M ") %>
+    <%= @trade_request.date_end.strftime("- %k:%M ") %>
+  </p>
+  <p style="text-align: center">
+    <%= link_to edit_trade_request_path(@trade_request), class: "button is-light" do %>
+      Editar
+    <% end %>
+    <%= link_to "Eliminar", trade_request_path, method: :delete, "class" => "button is-info"%>
+  </p>
+</div>
 
-<p>
-  <strong>Date End:</strong>
-  <%= @trade_request.date_end %>
-</p>
+<% if @trade_request.traded != 'true' %>
+  <h6 style="text-align: center; font-size: 2em; margin-bottom: 1.5em" > Ofertas </h6>
 
-<%= link_to 'Edit', edit_trade_request_path(@trade_request) %> |
-<%= link_to 'Back', trade_requests_path %>
+  <% @trade_request.swap_offers.each do |swap_offer| %>
 
-<% @trade_request.swap_offers.each do |swap_offer| %>
-    <p>
-      <strong>Name:</strong>
-      <%= swap_offer.name %>
-    </p>
+    <div class="box">
+      <p style="text-align: center; margin-bottom: 1em; font-size: 1.2em"><%= swap_offer.name %> </p>
+      <p style="text-align: center; margin-bottom: 1em; font-size: 2em">
+        <%= swap_offer.date_start.strftime("%a %e/%-m, %k:%M ") %>
+        <%= swap_offer.date_end.strftime("- %k:%M ") %>
+      </p>
 
-    <p>
-      <strong>Date start:</strong>
-      <%= swap_offer.date_start %>
-    </p>
+      <p style="text-align: center">
+        <% if swap_offer.status == "pendiente" %>
+          <%= link_to "Rechazar", change_status_swap_offer_path(swap_offer, status: 'rechazada'), method: :patch, "class" => "button is-light"%>
+          <%= link_to "Aceptar", change_status_swap_offer_path(swap_offer, status: 'aceptada', 'trade_id': @trade_request.id), method: :patch, "class" => "button is-info"%>
+        <% else %>
+          <p style="text-align: center; color: red">
+            <%= swap_offer.status %>
+          </p>
+        <% end %>
+      </p>
 
-    <p>
-      <strong>Date end:</strong>
-      <%= swap_offer.date_end %>
-    </p>
+
+    </div>
+
+  <% end %>
+
+<% else %>
+  <p style="text-align: center; font-size: 1.3em">
+    Esta oferta ya fue intercambiada con exito :-)
+  </p>
 <% end %>

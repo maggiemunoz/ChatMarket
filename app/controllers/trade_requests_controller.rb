@@ -72,6 +72,6 @@ class TradeRequestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trade_request_params
-      params.require(:trade_request).permit(:name, :date_start, :date_end)
+      params.require(:trade_request).permit(:name, :date_start, :date_end, :user_id, :traded)
     end
 end

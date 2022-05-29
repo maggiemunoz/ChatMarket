@@ -2,28 +2,32 @@
 
 <h6 style="text-align: center; font-size: 2em; margin-bottom: 1.5em" >Cambios Disponibles</h6>
 
-<% @trade_requests.each do |trade_request| %>
-  <div class="box">
-    <p style="text-align: center; margin-bottom: 1em; font-size: 1.2em"><%= trade_request.name %> </p>
-    <p style="text-align: center; margin-bottom: 1em; font-size: 2em">
-      <%= trade_request.date_start.strftime("%a %e/%-m, %k:%M ") %>
-      <%= trade_request.date_end.strftime("- %k:%M ") %>
-    </p>
-    <p style="text-align: center">
-      <%= link_to new_swap_offer_path(:trade_id => trade_request), class: "button is-info" do %>
-        Ofrecer Cambio
-      <% end %>
-      <%= link_to trade_request, class: "button" do %>
-        Ver Ofertas
-      <% end %>
-    </p>
-  </div>
-<% end %>
-
-<br>
-
-<p style="text-align: center">
-  <%= link_to new_trade_request_path, class: "button is-info" do %>
-    Postular Cambio
+<% if current_user%>
+  <% @trade_requests.each do |trade_request| %>
+    <% if trade_request.user_id != current_user.id%>
+      <div class="box">
+        <p style="text-align: center; margin-bottom: 1em; font-size: 1.2em"><%= trade_request.name %> </p>
+        <p style="text-align: center; margin-bottom: 1em; font-size: 2em">
+          <%= trade_request.date_start.strftime("%a %e/%-m, %k:%M ") %>
+          <%= trade_request.date_end.strftime("- %k:%M ") %>
+        </p>
+        <p style="text-align: center">
+          <%= link_to new_swap_offer_path(:trade_id => trade_request), class: "button is-light" do %>
+            Ofrecer Cambio
+          <% end %>
+        </p>
+      </div>
+    <% end %>
   <% end %>
-</p>
+
+  <br>
+
+  <p style="text-align: center">
+    <%= link_to new_trade_request_path, class: "button is-info" do %>
+      Postular Cambio
+    <% end %>
+  </p>
+
+<% else %>
+  <p style="text-align: center"> Inicia sesión para ver las ofertas o publicar la tuya</p>
+<% end %>

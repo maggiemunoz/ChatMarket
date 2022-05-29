@@ -21,6 +21,10 @@
     <%= form.datetime_select :date_start, {minute_step: 60, discard_year: true, discard_minutes: true} %>
   </div>
 
+  <%= form.hidden_field :user_id, value: current_user.id %>
+
+  <%= form.hidden_field :traded, value: 'false' %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
