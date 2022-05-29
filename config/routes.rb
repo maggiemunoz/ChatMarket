@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :swap_offers
   root to: "trade_requests#index"
 
   resources :trade_requests

@@ -22,7 +22,6 @@ class TradeRequestsController < ApplicationController
   # POST /trade_requests or /trade_requests.json
   def create
     better_params = trade_request_params
-    puts "AAAAAAA"
     better_params["date_end(1i)"] = better_params["date_start(1i)"] 
     better_params["date_end(2i)"] = better_params["date_start(2i)"] 
     better_params["date_end(3i)"] = better_params["date_start(3i)"] 

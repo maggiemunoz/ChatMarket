@@ -17,3 +17,20 @@
 
 <%= link_to 'Edit', edit_trade_request_path(@trade_request) %> |
 <%= link_to 'Back', trade_requests_path %>
+
+<% @trade_request.swap_offers.each do |swap_offer| %>
+    <p>
+      <strong>Name:</strong>
+      <%= swap_offer.name %>
+    </p>
+
+    <p>
+      <strong>Date start:</strong>
+      <%= swap_offer.date_start %>
+    </p>
+
+    <p>
+      <strong>Date end:</strong>
+      <%= swap_offer.date_end %>
+    </p>
+<% end %>

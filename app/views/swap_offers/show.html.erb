@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @swap_offer.name %>
+</p>
+
+<p>
+  <strong>Date start:</strong>
+  <%= @swap_offer.date_start %>
+</p>
+
+<p>
+  <strong>Date end:</strong>
+  <%= @swap_offer.date_end %>
+</p>
+
+<%= link_to 'Edit', edit_swap_offer_path(@swap_offer) %> |
+<%= link_to 'Back', swap_offers_path %>

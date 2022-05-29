@@ -1,31 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Trade Requests</h1>
+<h6 style="text-align: center; font-size: 2em; margin-bottom: 1.5em" >Cambios Disponibles</h6>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Date Start</th>
-      <th>Date End</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @trade_requests.each do |trade_request| %>
-      <tr>
-        <td><%= trade_request.name %></td>
-        <td><%= trade_request.date_start %></td>
-        <td><%= trade_request.date_end %></td>
-        <td><%= link_to 'Show', trade_request %></td>
-        <td><%= link_to 'Edit', edit_trade_request_path(trade_request) %></td>
-        <td><%= link_to 'Destroy', trade_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @trade_requests.each do |trade_request| %>
+  <div class="box">
+    <p style="text-align: center; margin-bottom: 1em; font-size: 1.2em"><%= trade_request.name %> </p>
+    <p style="text-align: center; margin-bottom: 1em; font-size: 2em">
+      <%= trade_request.date_start.strftime("%a %e/%-m, %k:%M ") %>
+      <%= trade_request.date_end.strftime("- %k:%M ") %>
+    </p>
+    <p style="text-align: center">
+      <%= link_to new_swap_offer_path(:trade_id => trade_request), class: "button is-info" do %>
+        Ofrecer Cambio
+      <% end %>
+      <%= link_to trade_request, class: "button" do %>
+        Ver Ofertas
+      <% end %>
+    </p>
+  </div>
+<% end %>
 
 <br>
 
-<%= link_to 'New Trade Request', new_trade_request_path %>
+<p style="text-align: center">
+  <%= link_to new_trade_request_path, class: "button is-info" do %>
+    Postular Cambio
+  <% end %>
+</p>

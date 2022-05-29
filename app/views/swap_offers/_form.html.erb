@@ -1,0 +1,29 @@
+<%= form_with(model: swap_offer, local: true) do |form| %>
+  <% if swap_offer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(swap_offer.errors.count, "error") %> prohibited this swap_offer from being saved:</h2>
+
+      <ul>
+        <% swap_offer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_start %>
+    <%= form.datetime_select :date_start, {minute_step: 60, discard_year: true, discard_minutes: true} %>
+  </div>
+
+  <%= form.hidden_field :trade_request_id, value: params["trade_id"] %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
