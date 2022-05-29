@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :swap_offers, dependent: :destroy
+  has_many :tasks, dependent: :destroy
   has_many :trade_request, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

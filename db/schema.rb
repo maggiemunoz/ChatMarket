@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_29_072648) do
+ActiveRecord::Schema.define(version: 2022_05_29_093324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,19 @@ ActiveRecord::Schema.define(version: 2022_05_29_072648) do
     t.string "status"
     t.index ["trade_request_id"], name: "index_swap_offers_on_trade_request_id"
     t.index ["user_id"], name: "index_swap_offers_on_user_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string "event"
+    t.string "members"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "trade_requests", force: :cascade do |t|
@@ -49,11 +62,16 @@ ActiveRecord::Schema.define(version: 2022_05_29_072648) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "provider"
     t.string "uid"
+    t.string "name"
+    t.string "access_token"
+    t.datetime "expires_at"
+    t.string "refresh_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "swap_offers", "trade_requests"
   add_foreign_key "swap_offers", "users"
+  add_foreign_key "tasks", "users"
   add_foreign_key "trade_requests", "users"
 end
